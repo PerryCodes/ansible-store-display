@@ -21,10 +21,10 @@
         vars:
           jmesquery: "Stores[?Name=='Store 13'].Screens[?Name='Screen 1'].Schedules[?Date=='{{ ansible_date_time.date }}'].MorningRotation[].Images[].[Name, Path]"
 
-      - name: copyImages
+      - name: copy images
         copy: 
-          src: /home/vagrant/ImageCache/{{ item[1] }}/{{ item[0] }}
-          dest: /home/vagrant/Synced/Store13/Screen1/
+          src: /home/cpcc/StoreDisplayClient/ImageCache/{{ item[1] }}/{{ item[0] }}
+          dest: /home/cpcc/Sync/Store13/Screen1/
         with_items:
           - "{{ images }}"
 ...       
