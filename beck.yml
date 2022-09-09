@@ -1,5 +1,5 @@
 ---
-  - name: QueueImages-Store13-Screen1
+  - name: QueueImages-Store13-Screen1-Morning
     hosts: all
     gather_facts: false
     tasks:
@@ -19,7 +19,7 @@
         set_fact:
           images: "{{ jsondata | json_query(jmesquery) }}"
         vars:
-          jmesquery: "Stores[?Name=='Store 13'].Screens[?Name=='Screen 1'].Schedules[?Date=='{{ ansible_date_time.date }}'].MorningRotation[].Images[].[Name, Path]"
+          jmesquery: "Stores[?Name=='Store 13'].Screens[] | [?Name=='Screen 1'].Schedules[] | [?Date=='{{ ansible_date_time.date }}'].MorningRotation[].Images[].[Name, Path]"
 
       - name: copy images
         copy: 
