@@ -27,4 +27,5 @@
           dest: /home/cpcc/Sync/Store13/Screen1/
         with_items:
           - "{{ images }}"
+        remote_src: true
 ...       
