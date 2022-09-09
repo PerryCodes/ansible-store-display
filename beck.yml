@@ -24,8 +24,8 @@
       - name: copy images
         copy: 
           src: /home/cpcc/StoreDisplayClient/ImageCache/{{ item[1] }}/{{ item[0] }}
+          remote_src: true
           dest: /home/cpcc/Sync/Store13/Screen1/
         with_items:
           - "{{ images }}"
-        remote_src: true
 ...       
