@@ -24,13 +24,13 @@
         set_fact:
           images: "{{ jsondata | json_query(jmesquery) }}"
         vars:
-          jmesquery: "Stores[?Name=='Store 13'].Screens[] | [?Name=='Screen 1'].Schedules[] | [?Date=='{{ ansible_date_time.date }}'].MorningRotation[].Images[].[Name, Path]"
+          jmesquery: "Stores[?Name=='{{ store }}'].Screens[] | [?Name=='{{ screen }}'].Schedules[] | [?Date=='{{ ansible_date_time.date }}'].{{ rotation }}[].Images[].[Name, Path]"
 
       - name: copy images
         copy: 
           src: /home/cpcc/StoreDisplayClient/ImageCache/{{ item[1] }}/{{ item[0] }}
           remote_src: true
-          dest: /home/cpcc/Sync/Store13/Screen1/
+          dest: /home/cpcc/Sync/{{ store | replace(' ', '') }}/{{ screen | replace(' ', '') }}/
         with_items:
           - "{{ images }}"
 ...       
