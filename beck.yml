@@ -2,7 +2,12 @@
   - name: QueueImages-Store13-Screen1-Morning
     hosts: all
     gather_facts: false
+
     tasks:
+      - name: test vars
+        debug:
+          msg: "{{ test_var }}"
+
       - name: setup
         setup:
           filter: ansible_date_time
