@@ -1,6 +1,6 @@
 ---
   - name: ReadJsonfile
-    hosts: localhost
+    #hosts: localhost
     gather_facts: false
     tasks:
       - name: setup
