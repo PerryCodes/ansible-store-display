@@ -1,6 +1,6 @@
 ---
-  - name: ReadJsonfile
-    #hosts: localhost
+  - name: QueueImages-Store13-Screen1
+    hosts: all
     gather_facts: false
     tasks:
       - name: setup
