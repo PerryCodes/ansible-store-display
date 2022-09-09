@@ -4,10 +4,6 @@
     gather_facts: false
 
     tasks:
-      - name: test vars
-        debug:
-          msg: "{{ test_var }}"
-
       - name: setup
         setup:
           filter: ansible_date_time
