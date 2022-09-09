@@ -8,7 +8,7 @@
           filter: ansible_date_time
 
       - name: register json as variable
-        shell: cat json/beck.json
+        shell: cat /home/cpcc/StoreDisplayClient/data.json
         register: result
 
       - name: set jsondata fact
