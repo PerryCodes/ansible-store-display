@@ -26,7 +26,7 @@
         copy: 
           src: /home/cpcc/StoreDisplayClient/ImageCache/{{ item[1] }}/{{ item[0] }}
           remote_src: true
-          dest: /home/cpcc/Sync/{{ store | replace(' ', '') }}/{{ screen | replace(' ', '') }}/
+          dest: /home/cpcc/test/Sync/{{ store | replace(' ', '') }}/{{ screen | replace(' ', '') }}/
         with_items:
           - "{{ images }}"
 ...       
