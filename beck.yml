@@ -1,5 +1,5 @@
 ---
-  - name: QueueImages-Store13-Screen1-Morning
+  - name: CopyImages Template
     hosts: all
     gather_facts: false
 
@@ -8,9 +8,15 @@
         setup:
           filter: ansible_date_time
 
+      - name: set x_nospace facts
+        set_fact:
+          store_nospace: "{{ store | replace(' ', '') }}"
+          screen_nospace: "{{ screen | replace(' ', '') }}"
+
       - name: register json as variable
         shell: cat /home/cpcc/StoreDisplayClient/data.json
         register: result
+        changed_when: false
 
       - name: set jsondata fact
         set_fact:
@@ -22,11 +28,22 @@
         vars:
           jmesquery: "Stores[?Name=='{{ store }}'].Screens[] | [?Name=='{{ screen }}'].Schedules[] | [?Date=='{{ ansible_date_time.date }}'].{{ rotation }}[].Images[].[Name, Path]"
 
+      - name: find files to delete
+        find:
+          paths: /home/cpcc/test/Sync/{{ store_nospace }}/{{ screen_nospace }}/
+        register: files_to_delete
+
+      - name: clear folder of old images
+        file:
+          path: "{{ item.path }}"
+          state: absent
+        with_items: "{{ files_to_delete.files }}"
+
       - name: copy images
         copy: 
           src: /home/cpcc/StoreDisplayClient/ImageCache/{{ item[1] }}/{{ item[0] }}
           remote_src: true
-          dest: /home/cpcc/test/Sync/{{ store | replace(' ', '') }}/{{ screen | replace(' ', '') }}/
+          dest: /home/cpcc/test/Sync/{{ store_nospace }}/{{ screen_nospace }}/
         with_items:
           - "{{ images }}"
 ...       
